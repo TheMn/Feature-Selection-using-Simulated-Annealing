@@ -1,0 +1,171 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2019
+
+% ready for submission
+% \usepackage{neurips_2019}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+    % \usepackage[preprint]{neurips_2019}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+\usepackage[final]{neurips}
+
+% to avoid loading the natbib package, add option nonatbib:
+    % \usepackage[nonatbib]{neurips_2019}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage[center]{caption}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xepersian}
+
+\settextfont{XB Yas.ttf}
+
+\title{
+فاز اول پروژه\\
+تبدیل مسئله‌ی انتخاب ویژگی یا
+\lr{Feature selection}
+به یک مسئله‌ی بهینه‌سازی و ارائه‌ی روش حل توسط الگوریتم فراابتکاری شبیه‌سازی تبرید یا
+\lr{Simulated annealing}
+}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+    گروه \lr{B}\\
+  امیرحسین مهدی‌نژاد\\
+  شماره دانشجویی 810800058\\
+  \texttt{mahdinejad@ut.ac.ir} \\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+% create title (includes both anonymized and non-anonymized versions)
+% \providecommand{\@makepertitle}{}
+% \newcommand{\makepertitle}{%
+%   \vbox{%
+%     \hsize\textwidth
+%     \linewidth\hsize
+%     \vskip 0.1in
+%     \toptitlebar
+%     \centering
+%     {\LARGE\bf \@title\par}
+%     \bottomtitlebar
+%       \def\And{%
+%         \end{tabular}\hfil\linebreak[0]\hfil%
+%         \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\ignorespaces%
+%       }
+%       \def\AND{%
+%         \end{tabular}\hfil\linebreak[4]\hfil%
+%         \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\ignorespaces%
+%       }
+%       \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\@author\end{tabular}%
+%     \vskip 0.3in \@minus 0.1in
+%   }
+% }
+
+\begin{document}
+
+
+\begin{minipage}{0.1\textwidth}% adapt widths of minipages to your needs
+\includegraphics[width=1.1cm]{Photos/UT_logo.png}
+\end{minipage}%
+\hfill%
+\begin{minipage}{0.9\textwidth}\raggedleft
+دانشکده فنی، دانشگاه تهران\\
+الگوریتم‌های گراف و شبکه - 
+دی
+ماه 1400\\
+\end{minipage}
+% \end{}
+
+
+\makepertitle
+
+
+% \begin{abstract}
+%  این بخش از یک پاراگراف تشکیل شده است که توضیحاتی کلی در مورد مساله و راه حل شما ارائه می‌دهد.
+% \end{abstract}
+
+\begin{multicols}{2}
+\section{
+مقدمه
+}
+هدف از حل مسئله‌ی انتخاب ویژگی، انتخاب یک زیرمجموعه از بین ویژگی‌ها یا متغیرهایی است که آن‌ها را متغیرهای مستقل فرض می‌کنیم که طی فرآیندی متغیر وابسته را ایجاد می‌کنند.\\
+لزوما استفاده از تمام
+{n}
+ویژگی به نفع ما نیست و به همین خاطر به انتخاب زیرمجموعه‌ای از ویژگی‌ها می‌پردازیم. 
+راه حل قطعی برای این مسئله وجود ندارد، در نتیجه به روش‌های دیگری همچون استفاده از الگوریتم‌های فراابتکاری روی می‌آوریم.\\
+ما ویژگی‌ها را همانطور که هستند انتخاب می‌کنیم و با مسئله‌ای باینتری مواجه هستیم.
+بدین منظور ویژگی‌های انتخاب شده را وارد یکی از مدل‌های یادگیری ماشین نظارت شده می‌کنیم و هرچه اختلاف خروجی این مدل با اختلاف خروجی هدف کمتر باشد، به مجموعه جواب بهتری رسیده‌ایم و می‌خواهیم این اختلاف را کمینه کنیم.
+$$y = f(x) \simeq \hat{f}(\hat{x})$$
+$$\hat{x} \subseteq x$$
+
+\section{
+الگوریتم شبیه‌سازی تبرید
+}
+برای حل این مسئله از الگوریتم شبیه‌سازی تبرید یا
+\lr{Simulated annealing}
+استفاده می‌کنیم که در آن از فرآیند بازپخت که از مباحث رشته‌ی متالوژی محسوب می‌شود، الگو گرفته شده است.\\
+در واقع ابتدا جواب‌های مسئله با نوسانات زیادی تغییر می‌کنند (
+\lr{exploitation}
+) و سپس به تدریج دامنه‌ی تغییرات کم می‌شود و به سمت جواب بهینه هدایت می‌شویم.\\
+این الگوریتم از یک نقطه‌ی دلخواه آغاز به کار کرده و سپس یک حالت همسایه را انتخاب می‌کند. پس از آن به طور احتمالی تصمیم می‌گیرد که در حالت کنونی بماند یا به حالت همسایه‌ای جابجا شود. این کار تا جایی انجام می‌شود که سیستم به یک حالت عقلانی برسد یا اینکه میزان محاسبات، از یک آستانه‌ی مشخص بیشتر شود.\\
+برای فرار از گیر کردن در بهینه‌ی محلی از این ایده استفاده می‌شود که مانع از انجام حرکت‌های بد نشویم (یعنی امکان حرکت به سمت همسایه‌های کم‌ارزش‌تر وجود داشته باشد) و سپس به تدریج اندازه و تعداد حرکت‌های بد را کاهش دهیم.\\
+با در نظر گرفتن متغیر
+\lr{T}
+به عنوان دما، در هر مرحله از اجرای الگوریتم، حالت بعدی به صورت تصادفی انتخاب می‌شود. اگر حالت بعدی انتخاب شده از حالت فعلی بهتر باشد، به آن حالت می‌رویم و در غیر این صورت، با احتمال 
+$e^{\Delta E/T}$
+به آن حالت خواهیم رفت. یعنی هرچه حالت بعدی بدتر باشد، این احتمال به صورت نمایی کاهش یافته و همچنین با کاهش
+\lr{T}
+این احتمال کاهش می‌یابد.\\
+هرچه دما آهسته‌تر کاهش یابد، تعداد مراحل جستجو و در نتیجه احتمال یافتن بهینه‌ی سراسری بیشتر است.
+
+\section{
+نحوه‌ی مدل‌سازی
+}
+دیتاستی که در اختیار ما قرار گرفته است شامل ۱۱ ویژگی برای پیش‌بینی نارسایی قلبی است. پس جوابی که با آن الگوریتم شبیه‌سازی تبرید را شروع می‌کنیم، آرایه‌ای ۱۱ عنصری از صفر و یک‌هاست
+(انتخاب یا عدم انتخاب یک ویژگی برای آموزش).\\
+در هر مرحله از اجرای الگوریتم با توجه به توضیحاتی که در بخش قبلی به آن اشاره شد، با یک روش یادگیری نظارت‌شده مثل
+\lr{SVM}
+که برای مسائل طبقه‌بندی استفاده می‌شود، جواب بدست آمده را با ستون ۱۲ام مقایسه می‌کنیم و آن را به عنوان معیار امتیازدهی در نظر می‌گیریم.\\
+در مورد الگوریتم 
+\lr{SA}
+گفته می‌شود که اگر دما به آرامی کاهش یابد، الگوریتم پاسخ بهینه سراسری را با احتمالی که به سمت یک میل می‌کند، پیدا خواهد نمود.
+
+\section{
+منابع
+}
+\lr{1. Agrawal P, Abutarboush HF, Ganesh T, Mohamed AW. Metaheuristic Algorithms on Feature Selection: A Survey of One Decade of Research (2009-2019). IEEE Access [Internet]. Institute of Electrical and Electronics Engineers (IEEE); 2021;9:26766–91.}\\
+\lr{2. Lin S-W, Lee Z-J, Chen S-C, Tseng T-Y. Parameter determination of support vector machine and feature selection using simulated annealing approach. Applied Soft Computing [Internet]. Elsevier BV; 2008 Sep;8(4):1505–12.}
+
+\end{multicols}
+\end{document}
