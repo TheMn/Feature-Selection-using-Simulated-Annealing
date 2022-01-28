@@ -18,7 +18,7 @@ def binary_simulated_annealing(features_len, n_iterations, temperature):
     best_score = evaluate(best_solution)
     
     current_solution, current_score = best_solution, best_score
-    print("initial_solution: {}, initial_score: {}".format(current_solution, current_score))
+    print("initial_solution: {}, initial_score: {}".format(current_solution, 1-current_score))
     
     for i in range(n_iterations):
         
