@@ -12,12 +12,13 @@ def generate_candidate(solution, distance = 1):
     
     return solution
 
-def binary_simulated_annealing(features_len, n_iterations, temperature): # TODO: find best temperature
+def binary_simulated_annealing(features_len, n_iterations, temperature): 
     
     best_solution = np.random.choice([0, 1], features_len)
     best_score = evaluate(best_solution)
     
     current_solution, current_score = best_solution, best_score
+    print("initial_solution: {}, initial_score: {}".format(current_solution, current_score))
     
     for i in range(n_iterations):
         
@@ -27,7 +28,7 @@ def binary_simulated_annealing(features_len, n_iterations, temperature): # TODO:
         if candidate_score < best_score:
             
             best_solution, best_score = candidate_solution, candidate_score
-            print("{}: {} ~~~> {:.3f}".format(i, best_solution, best_score))
+            print("{}: {} ~~~> {:.3f}".format(i, best_solution, 1-best_score))
         
         delta = candidate_score - current_score
         current_t = temperature / float(i+1)
@@ -38,4 +39,4 @@ def binary_simulated_annealing(features_len, n_iterations, temperature): # TODO:
             current_solution, current_score = candidate_solution, candidate_score
     
     return {"best_solution": best_solution,
-           "best_score": best_score}
+           "best_score": 1-best_score}
